@@ -1,0 +1,23 @@
+/* U1158049.css - 網站樣式表 */
+ 
+.main-title {
+    font-weight: bold;   /* 文字粗體 */
+    color: #FFB7DD;      /* 文字顏色 */
+}
+ 
+/* 圖片連結：去除底線、以區塊方式呈現，方便動畫套用 */
+.img-link {
+    display: inline-block;
+}
+ 
+/* 圖片點擊放大動畫 */
+.zoom-img {
+    transition: transform 0.2s ease;  /* 過渡動畫效果，時間0.2秒 */
+    cursor: pointer;                  /* 滑鼠移到圖片上顯示手指游標，提示可點擊 */
+}
+ 
+/* 滑鼠移動至圖片上方時圖片放大 */
+.zoom-img:hover {
+    transform: scale(1.3);            /* 放大至1.3倍 */
+}
+ 
