@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苗農嚴選 - 苗栗農產品官方購物網</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 自訂樣式 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-md">
+
+    <!-- Announcement Bar -->
+    <div class="bg-amber-800 text-amber-50 text-xs md:text-sm py-2 px-4 text-center font-medium flex justify-between items-center px-8">
+        <div class="flex-1">
+            <i class="fa-solid fa-bullhorn mr-2"></i>
+            <span>【苗栗客家農產季】全館消費滿 $1,000 即享免運費，首購會員再贈好禮！</span>
+        </div>
+        <button onclick="closeAnnouncement(this)" class="text-amber-200 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="bg-theme-nav text-white shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-10 h-10 rounded-full bg-amber-100 text-emerald-800 flex items-center justify-center font-bold text-xl shadow">
+                    苗
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wide">苗農嚴選</h1>
+                    <p class="text-xs text-emerald-200">Miaoli Produce Store</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex space-x-6 font-medium text-sm">
+                <button onclick="switchTab('home')" id="nav-home" class="hover:text-amber-200 transition py-1">首頁</button>
+                <button onclick="switchTab('products')" id="nav-products" class="hover:text-amber-200 transition py-1">商品商城</button>
+                <button onclick="switchTab('cart')" id="nav-cart" class="hover:text-amber-200 transition py-1 relative">
+                    購物車
+                    <span id="cart-badge" class="hidden absolute -top-2 -right-3 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">0</span>
+                </button>
+                <button onclick="switchTab('profile')" id="nav-profile" class="hover:text-amber-200 transition py-1">我的資料</button>
+                <button onclick="switchTab('settings')" id="nav-settings" class="hover:text-amber-200 transition py-1">系統設定</button>
+            </nav>
+
+            <!-- Quick Action Icons -->
+            <div class="flex items-center space-x-4">
+                <button onclick="openAuthModal('login')" class="text-sm bg-amber-700 hover:bg-amber-800 px-3 py-1.5 rounded-lg transition flex items-center">
+                    <i class="fa-solid fa-user mr-1.5"></i>
+                    <span id="user-display-name">會員登入</span>
+                </button>
+                <button onclick="switchTab('cart')" class="md:hidden relative text-lg">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-badge-mobile" class="hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-theme-card border-t border-theme z-40 flex justify-around py-2">
+        <button onclick="switchTab('home')" class="flex flex-col items-center text-xs text-theme-muted">
+            <i class="fa-solid fa-house text-lg mb-0.5"></i>首頁
+        </button>
+        <button onclick="switchTab('products')" class="flex flex-col items-center text-xs text-theme-muted">
+            <i class="fa-solid fa-store text-lg mb-0.5"></i>商品
+        </button>
+        <button onclick="switchTab('cart')" class="flex flex-col items-center text-xs text-theme-muted">
+            <i class="fa-solid fa-cart-shopping text-lg mb-0.5"></i>購物車
+        </button>
+        <button onclick="switchTab('profile')" class="flex flex-col items-center text-xs text-theme-muted">
+            <i class="fa-solid fa-user text-lg mb-0.5"></i>會員
+        </button>
+        <button onclick="switchTab('settings')" class="flex flex-col items-center text-xs text-theme-muted">
+            <i class="fa-solid fa-gear text-lg mb-0.5"></i>設定
+        </button>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-6 pb-20 md:pb-12">
+
+        <!-- VIEW 1: 首頁 (HOME) -->
+        <section id="view-home" class="space-y-8">
+            <!-- Hero Banner -->
+            <div class="relative rounded-2xl overflow-hidden shadow-lg bg-emerald-900 text-white">
+                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80" alt="苗栗山林" class="w-full h-64 md:h-80 object-cover opacity-40">
+                <div class="absolute inset-0 flex flex-col justify-center px-6 md:px-12 bg-gradient-to-r from-emerald-950/80 to-transparent">
+                    <span class="inline-block px-3 py-1 bg-amber-600 text-amber-100 text-xs font-semibold rounded-full w-max mb-3">苗栗在地契作 ‧ 產地直送</span>
+                    <h2 class="text-2xl md:text-4xl font-bold mb-2">品嚐山城純粹的自然甘甜</h2>
+                    <p class="text-sm md:text-base text-gray-200 mb-6 max-w-xl">集結大湖草莓、頭份東方美人茶、公館紅棗等10大苗栗優質特產，傳承客家勤儉與熱情的好滋味。</p>
+                    <div>
+                        <button onclick="switchTab('products')" class="btn-wood px-6 py-2.5 rounded-xl text-sm font-semibold shadow hover:scale-105 transition">
+                            <i class="fa-solid fa-basket-shopping mr-2"></i>立即選購農特產
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 熱門商品 (Hot Products) -->
+            <div>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold border-l-4 border-emerald-700 pl-3">🔥 熱門推薦商品</h3>
+                    <button onclick="switchTab('products')" class="text-sm text-emerald-700 hover:underline">查看全部 <i class="fa-solid fa-angle-right"></i></button>
+                </div>
+                <div id="hot-products-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                    <!-- Dynamic Hot Products -->
+                </div>
+            </div>
+
+            <!-- 優惠活動 (Promotions) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-amber-100 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 rounded-xl p-5 flex items-center space-x-4">
+                    <div class="p-3 bg-amber-600 text-white rounded-full text-2xl">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-amber-900 dark:text-amber-200">【客家風情特惠組】</h4>
+                        <p class="text-xs text-amber-800 dark:text-amber-300 mt-1">任選公館福菜 + 南庄桂竹筍，現省 $80！禮盒限量發售。</p>
+                    </div>
+                </div>
+                <div class="bg-emerald-100 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800 rounded-xl p-5 flex items-center space-x-4">
+                    <div class="p-3 bg-emerald-700 text-white rounded-full text-2xl">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-emerald-900 dark:text-emerald-200">【鮮果冷藏冷鏈免運】</h4>
+                        <p class="text-xs text-emerald-800 dark:text-emerald-300 mt-1">大湖草莓 Premium 與泰安甜柿，滿 2 箱即享全程低溫免運。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 品牌介紹 (Brand Story) -->
+            <div class="bg-theme-card border border-theme rounded-2xl p-6 shadow-sm">
+                <div class="max-w-3xl mx-auto text-center space-y-3">
+                    <h3 class="text-2xl font-bold text-emerald-800 dark:text-emerald-400">品牌介紹 ‧ 苗農嚴選</h3>
+                    <p class="text-sm text-theme-muted leading-relaxed">
+                        苗栗擁有獨特的丘陵地形與宜人的氣候，滋養出豐富多元的優質農特產品。「苗農嚴選」由苗栗縣農友聯合發起，秉持對土地的敬意與客家樸實精神，堅持友善耕作與嚴格品質把關，將尚新鮮、尚甘甜的山城風味直接送到您的餐桌。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 聯絡我們 (Contact Us) -->
+            <div class="bg-stone-800 text-stone-200 rounded-2xl p-6">
+                <h4 class="text-lg font-bold text-amber-400 mb-4"><i class="fa-solid fa-paper-plane mr-2"></i>聯絡我們 (Contact Us)</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                        <p class="font-medium text-white mb-1"><i class="fa-solid fa-location-dot mr-2 text-amber-500"></i>門市地址</p>
+                        <p class="text-xs text-stone-400">苗栗縣苗栗市府前路 1 號 (苗栗農產品展售中心)</p>
+                    </div>
+                    <div>
+                        <p class="font-medium text-white mb-1"><i class="fa-solid fa-phone mr-2 text-amber-500"></i>客服專線</p>
+                        <p class="text-xs text-stone-400">(037) 123-4567 / 週一至週五 08:30-17:30</p>
+                    </div>
+                    <div>
+                        <p class="font-medium text-white mb-1"><i class="fa-solid fa-envelope mr-2 text-amber-500"></i>電子郵件</p>
+                        <p class="text-xs text-stone-400">service@miaoli-farm.org.tw</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: 商品 (PRODUCTS) -->
+        <section id="view-products" class="hidden space-y-6">
+            <!-- 搜尋與次級導覽 (Search & Secondary Tabs) -->
+            <div class="bg-theme-card p-4 rounded-xl shadow-sm border border-theme space-y-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <!-- Search Input -->
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+                        <input type="text" id="search-input" oninput="handleSearch()" placeholder="搜尋苗栗特產 (如: 草莓, 東方美人茶...)" class="w-full pl-10 pr-4 py-2 border border-theme rounded-lg bg-theme-card text-theme-main focus:outline-none focus:ring-2 focus:ring-emerald-600 text-sm">
+                    </div>
+                    
+                    <!-- View Mode Filters (我的收藏 / 歷史瀏覽) -->
+                    <div class="flex space-x-2 text-xs">
+                        <button onclick="filterProducts('all')" id="btn-filter-all" class="px-3 py-2 bg-emerald-700 text-white rounded-lg">全部商品</button>
+                        <button onclick="filterProducts('fav')" id="btn-filter-fav" class="px-3 py-2 bg-theme-card border border-theme rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-950/30">
+                            <i class="fa-solid fa-heart text-red-500 mr-1"></i>我的收藏
+                        </button>
+                        <button onclick="filterProducts('history')" id="btn-filter-history" class="px-3 py-2 bg-theme-card border border-theme rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-950/30">
+                            <i class="fa-solid fa-clock-rotate-left text-amber-600 mr-1"></i>歷史瀏覽
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 商品分類 (Categories) -->
+                <div class="flex space-x-2 overflow-x-auto pb-1 text-sm">
+                    <button onclick="changeCategory('all')" class="category-btn px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 font-medium whitespace-nowrap">全部分類</button>
+                    <button onclick="changeCategory('fruit')" class="category-btn px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-theme-muted whitespace-nowrap">時令鮮果</button>
+                    <button onclick="changeCategory('tea')" class="category-btn px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-theme-muted whitespace-nowrap">名茶飲品</button>
+                    <button onclick="changeCategory('processed')" class="category-btn px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-theme-muted whitespace-nowrap">客家醃漬乾貨</button>
+                </div>
+            </div>
+
+            <!-- 商品列表 Grid -->
+            <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- Dynamically Populated Products -->
+            </div>
+        </section>
+
+        <!-- VIEW 3: 購物車 (CART & ORDERS) -->
+        <section id="view-cart" class="hidden space-y-6">
+            <!-- Secondary Navigation for Cart / Orders -->
+            <div class="flex border-b border-theme text-sm font-medium">
+                <button onclick="switchCartTab('list')" id="cart-tab-list" class="pb-3 px-4 tab-active">
+                    <i class="fa-solid fa-basket-shopping mr-2"></i>購物車清單
+                </button>
+                <button onclick="switchCartTab('orders')" id="cart-tab-orders" class="pb-3 px-4 text-theme-muted">
+                    <i class="fa-solid fa-receipt mr-2"></i>訂單紀錄與進度
+                </button>
+            </div>
+
+            <!-- Tab Content 1: Cart Items List -->
+            <div id="cart-content-list" class="space-y-4">
+                <div id="cart-items-container" class="space-y-3">
+                    <!-- Dynamically Loaded Cart Items -->
+                </div>
+
+                <!-- Summary Box -->
+                <div class="bg-theme-card p-4 rounded-xl border border-theme flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <p class="text-xs text-theme-muted">共 <span id="cart-total-count">0</span> 件商品</p>
+                        <p class="text-xl font-bold text-emerald-800 dark:text-emerald-400">總金額： NT$ <span id="cart-total-price">0</span></p>
+                    </div>
+                    <button onclick="handleCheckout()" class="w-full md:w-auto btn-green px-8 py-3 rounded-xl font-bold shadow-md hover:scale-105 transition">
+                        <i class="fa-solid fa-credit-card mr-2"></i>立即結帳
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Content 2: Order History & Tracking -->
+            <div id="cart-content-orders" class="hidden space-y-6">
+                <!-- 訂單進度 Track Status -->
+                <div class="bg-theme-card p-6 rounded-xl border border-theme shadow-sm">
+                    <h4 class="font-bold text-base mb-4 text-emerald-800 dark:text-emerald-400"><i class="fa-solid fa-truck-ramp-box mr-2"></i>近期訂單處理進度 (單號 #ML20261006)</h4>
+                    <div class="grid grid-cols-4 text-center relative">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs mb-2 z-10">1</div>
+                            <span class="text-xs font-semibold">已完成付款</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs mb-2 z-10">2</div>
+                            <span class="text-xs font-semibold">農場備貨中</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-xs mb-2 z-10 animate-pulse">3</div>
+                            <span class="text-xs font-semibold text-amber-600">冷鏈運送中</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold text-xs mb-2 z-10">4</div>
+                            <span class="text-xs text-gray-400">已宅配簽收</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 歷史訂單列表 -->
+                <div class="bg-theme-card rounded-xl border border-theme overflow-hidden shadow-sm">
+                    <div class="p-4 bg-gray-50 dark:bg-gray-800 font-bold text-sm border-b border-theme">歷史訂單紀錄</div>
+                    <div class="divide-y divide-theme text-sm">
+                        <div class="p-4 flex justify-between items-center">
+                            <div>
+                                <p class="font-semibold">訂單編號：ML20261006</p>
+                                <p class="text-xs text-theme-muted mt-1">下單時間：2026-10-06 14:20 ‧ 大湖草莓 Premium x2</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-2 py-1 bg-amber-100 text-amber-800 rounded text-xs font-bold">配送中</span>
+                                <p class="font-bold mt-1">NT$ 1,360</p>
+                            </div>
+                        </div>
+                        <div class="p-4 flex justify-between items-center">
+                            <div>
+                                <p class="font-semibold">訂單編號：ML20260918</p>
+                                <p class="text-xs text-theme-muted mt-1">下單時間：2026-09-18 09:15 ‧ 頭份東方美人茶 x1, 公館紅棗 x1</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded text-xs font-bold">已完成</span>
+                                <p class="font-bold mt-1">NT$ 1,550</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: 我的資料 (PROFILE) -->
+        <section id="view-profile" class="hidden space-y-6">
+            <div class="bg-theme-card p-6 rounded-xl border border-theme shadow-sm flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+                <div class="w-20 h-20 rounded-full bg-emerald-800 text-amber-200 text-3xl font-bold flex items-center justify-center border-2 border-amber-400">
+                    客
+                </div>
+                <div class="text-center md:text-left flex-1 space-y-1">
+                    <div class="flex items-center justify-center md:justify-start space-x-2">
+                        <h3 class="text-xl font-bold">陳阿哥 (Hakka Member)</h3>
+                        <span class="px-2.5 py-0.5 bg-amber-500 text-white rounded-full text-xs font-bold">金柿會員</span>
+                    </div>
+                    <p class="text-xs text-theme-muted"><i class="fa-solid fa-envelope mr-1"></i>電子郵件：hakka.farmer@miaoli.gov.tw</p>
+                    <p class="text-xs text-theme-muted"><i class="fa-solid fa-location-dot mr-1"></i>預設收件地址：苗栗縣頭份市中央路 88 號</p>
+                </div>
+            </div>
+
+            <!-- 會員等級與權益 (Membership Level) -->
+            <div class="bg-amber-50 dark:bg-amber-950/30 p-6 rounded-xl border border-amber-200 dark:border-amber-800">
+                <h4 class="font-bold text-amber-900 dark:text-amber-200 mb-2"><i class="fa-solid fa-crown mr-2"></i>會員等級與升級進度</h4>
+                <div class="w-full bg-amber-200 dark:bg-amber-800 rounded-full h-3 mb-2">
+                    <div class="bg-amber-600 h-3 rounded-full" style="width: 75%"></div>
+                </div>
+                <p class="text-xs text-amber-800 dark:text-amber-300">再累積消費 NT$ 1,200 即可升級為「尊榮鑽石會員」，享有全館 88 折優惠！</p>
+            </div>
+
+            <!-- 收件地址管理 (Delivery Address) -->
+            <div class="bg-theme-card p-6 rounded-xl border border-theme shadow-sm space-y-4">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-base"><i class="fa-solid fa-house-user mr-2 text-emerald-700"></i>收件地址簿 (Delivery Address)</h4>
+                    <button onclick="showToast('已開啟新增地址介面')" class="text-xs btn-green px-3 py-1.5 rounded-lg">+ 新增地址</button>
+                </div>
+                <div class="space-y-2 text-sm">
+                    <div class="p-3 border border-emerald-600 rounded-lg flex justify-between items-center bg-emerald-50/50 dark:bg-emerald-950/20">
+                        <div>
+                            <span class="px-2 py-0.5 bg-emerald-700 text-white text-xs rounded mr-2">預設</span>
+                            <span>苗栗縣頭份市中央路 88 號 (陳先生收 / 0912-345-678)</span>
+                        </div>
+                        <button onclick="showToast('編輯地址功能')" class="text-xs text-emerald-700 hover:underline">修改</button>
+                    </div>
+                    <div class="p-3 border border-theme rounded-lg flex justify-between items-center">
+                        <div>
+                            <span>苗栗縣公館鄉館南村 12 號 (公司備用)</span>
+                        </div>
+                        <button onclick="showToast('編輯地址功能')" class="text-xs text-emerald-700 hover:underline">修改</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 5: 設定 (SETTINGS) -->
+        <section id="view-settings" class="hidden space-y-6">
+            <div class="bg-theme-card p-6 rounded-xl border border-theme shadow-sm divide-y divide-theme">
+                <h3 class="text-xl font-bold pb-4 text-emerald-800 dark:text-emerald-400">系統與偏好設定 (Settings)</h3>
+
+                <!-- 更改個人資料 -->
+                <div class="py-4 flex justify-between items-center">
+                    <div>
+                        <p class="font-semibold">更改個人資料</p>
+                        <p class="text-xs text-theme-muted">修改姓名、聯絡電話與密碼</p>
+                    </div>
+                    <button onclick="openAuthModal('profile')" class="btn-wood px-4 py-1.5 rounded-lg text-xs">編輯</button>
+                </div>
+
+                <!-- 夜間模式 Switch -->
+                <div class="py-4 flex justify-between items-center">
+                    <div>
+                        <p class="font-semibold">夜間模式 (Dark Mode)</p>
+                        <p class="text-xs text-theme-muted">切換高對比深色視覺主題</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode()" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                    </label>
+                </div>
+
+                <!-- 字體調整 -->
+                <div class="py-4 flex justify-between items-center">
+                    <div>
+                        <p class="font-semibold">字體大小調整 (Font Size)</p>
+                        <p class="text-xs text-theme-muted">依個人閱讀習慣縮放系統文字</p>
+                    </div>
+                    <div class="flex space-x-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
+                        <button onclick="setFontSize('sm')" id="font-btn-sm" class="px-3 py-1 text-xs rounded">小</button>
+                        <button onclick="setFontSize('md')" id="font-btn-md" class="px-3 py-1 text-xs rounded bg-white dark:bg-gray-700 font-bold shadow">中</button>
+                        <button onclick="setFontSize('lg')" id="font-btn-lg" class="px-3 py-1 text-xs rounded">大</button>
+                    </div>
+                </div>
+
+                <!-- 語言設定 -->
+                <div class="py-4 flex justify-between items-center">
+                    <div>
+                        <p class="font-semibold">語言設定 (Language)</p>
+                        <p class="text-xs text-theme-muted">選擇偏好的顯示語言</p>
+                    </div>
+                    <select onchange="showToast('已切換語言：' + this.value)" class="bg-theme-card border border-theme rounded-lg px-3 py-1.5 text-xs text-theme-main">
+                        <option value="繁體中文">繁體中文 (台灣)</option>
+                        <option value="客家話語音版">客家話 (Hakka)</option>
+                        <option value="English">English</option>
+                    </select>
+                </div>
+
+                <!-- 註銷帳號 & 登出 -->
+                <div class="py-4 flex justify-between items-center">
+                    <div>
+                        <p class="font-semibold text-red-600">帳號安全管理</p>
+                        <p class="text-xs text-theme-muted">登出當前裝置或永久刪除資料</p>
+                    </div>
+                    <div class="space-x-2">
+                        <button onclick="handleLogout()" class="px-3 py-1.5 bg-gray-200 dark:bg-gray-700 text-xs rounded-lg hover:bg-gray-300">登出</button>
+                        <button onclick="confirmDeleteAccount()" class="px-3 py-1.5 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700">註銷帳號</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING ONLINE CUSTOMER SERVICE (線上客服) -->
+    <div class="fixed bottom-20 md:bottom-6 right-6 z-30">
+        <button onclick="toggleCustomerService()" class="bg-emerald-700 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition duration-300 flex items-center justify-center">
+            <i class="fa-solid fa-comments text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Customer Service Chatbox Modal -->
+    <div id="chat-modal" class="hidden fixed bottom-28 right-6 w-80 bg-theme-card border border-theme rounded-2xl shadow-2xl z-40 overflow-hidden flex flex-col">
+        <div class="bg-emerald-800 text-white p-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-headset"></i>
+                <span class="font-bold text-sm">苗農線上客服助手</span>
+            </div>
+            <button onclick="toggleCustomerService()" class="text-white hover:text-gray-300"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="chat-messages" class="p-3 h-64 overflow-y-auto space-y-2 text-xs">
+            <div class="bg-emerald-100 dark:bg-emerald-950/60 p-2 rounded-lg text-emerald-900 dark:text-emerald-200 max-w-[85%]">
+                您好！我是苗農小幫手 🌾，請配合詢問苗栗特產產期、配送或客家禮盒諮詢！
+            </div>
+        </div>
+        <div class="p-2 border-t border-theme flex space-x-1">
+            <input type="text" id="chat-input" placeholder="輸入訊息..." class="flex-1 px-3 py-1.5 text-xs border border-theme rounded-lg bg-theme-card text-theme-main focus:outline-none">
+            <button onclick="sendChatMessage()" class="btn-green px-3 py-1.5 text-xs rounded-lg"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- AUTH MODAL (登錄會員 / 建立帳號 / 忘記密碼) -->
+    <div id="auth-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-theme-card w-full max-w-md rounded-2xl shadow-2xl p-6 border border-theme relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-theme-muted hover:text-theme-main"><i class="fa-solid fa-xmark text-lg"></i></button>
+            
+            <div class="flex space-x-4 border-b border-theme pb-3 mb-4 text-sm font-bold">
+                <button onclick="switchAuthTab('login')" id="auth-tab-login" class="text-emerald-700 border-b-2 border-emerald-700 pb-1">登錄會員</button>
+                <button onclick="switchAuthTab('register')" id="auth-tab-register" class="text-theme-muted pb-1">建立帳號</button>
+                <button onclick="switchAuthTab('forgot')" id="auth-tab-forgot" class="text-theme-muted pb-1">忘記密碼</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="form-login" onsubmit="event.preventDefault(); handleAuthSubmit('login');" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold mb-1">電子郵件 / 手機號碼</label>
+                    <input type="text" required value="hakka.farmer@miaoli.gov.tw" class="w-full px-3 py-2 border border-theme rounded-lg text-sm bg-theme-card text-theme-main">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1">密碼</label>
+                    <input type="password" required value="******" class="w-full px-3 py-2 border border-theme rounded-lg text-sm bg-theme-card text-theme-main">
+                </div>
+                <button type="submit" class="w-full btn-green py-2.5 rounded-lg text-sm font-bold">登入帳號</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="form-register" onsubmit="event.preventDefault(); handleAuthSubmit('register');" class="hidden space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold mb-1">姓名</label>
+                    <input type="text" placeholder="請輸入姓名" class="w-full px-3 py-2 border border-theme rounded-lg text-sm bg-theme-card text-theme-main">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1">電子郵件</label>
+                    <input type="email" placeholder="example@domain.com" class="w-full px-3 py-2 border border-theme rounded-lg text-sm bg-theme-card text-theme-main">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1">設定密碼</label>
+                    <input type="password" class="w-full px-3 py-2 border border-theme rounded-lg text-sm bg-theme-card text-theme-main">
+                </div>
+                <button type="submit" class="w-full btn-wood py-2.5 rounded-lg text-sm font-bold">註冊新會員</button>
+            </form>
+
+            <!-- Forgot Password Form -->
+            <form id="form-forgot" onsubmit="event.preventDefault(); handleAuthSubmit('forgot');" class="hidden space-y-4">
+                <p class="text-xs text-theme-muted">請輸入您註冊時使用的電子郵件，系統將發送重設密碼驗證連結。</p>
+                <div>
+                    <label class="block text-xs font-semibold mb-1">電子郵件</label>
+                    <input type="email" required placeholder="example@domain.com" class="w-full px-3 py-2 border border-theme rounded-lg text-sm bg-theme-card text-theme-main">
+                </div>
+                <button type="submit" class="w-full bg-amber-600 text-white py-2.5 rounded-lg text-sm font-bold">寄送重設信件</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL MODAL (商品資訊、數量、加入購物車/直接購買/收藏/評論) -->
+    <div id="product-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-theme-card w-full max-w-2xl rounded-2xl shadow-2xl p-6 border border-theme max-h-[90vh] overflow-y-auto relative">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-theme-muted hover:text-theme-main"><i class="fa-solid fa-xmark text-xl"></i></button>
+
+            <div id="modal-product-content">
+                <!-- Dynamically Inserted Detail View -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed top-20 right-6 bg-stone-900 text-white px-5 py-3 rounded-xl shadow-2xl z-50 flex items-center space-x-3 pointer-events-none opacity-0 transform translate-y-[-10px]">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-message" class="text-xs md:text-sm">提示訊息</span>
+    </div>
+
+    <script>
+        /* -------------------------------------------------------------
+           PRODUCTS DATASET (10 Miaoli Specialities as requested)
+        ------------------------------------------------------------- */
+        const productsData = [
+            {
+                id: 1,
+                name: "大湖草莓 Premium",
+                category: "fruit",
+                price: 680,
+                unit: "禮盒裝 (1斤/盒)",
+                desc: "苗栗大湖盛產頂級草莓，果實碩大、鮮紅欲滴、氣味濃郁且香甜多汁。",
+                image: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=600&q=80",
+                rating: 4.9,
+                isHot: true,
+                reviews: [
+                    { user: "張小姐", star: 5, comment: "超新鮮！草莓非常大顆而且完全沒有碰撞傷。" },
+                    { user: "李先生", star: 5, comment: "大湖草莓口感就是甜，家裡小朋友一口接一口！" }
+                ]
+            },
+            {
+                id: 2,
+                name: "公館紅棗",
+                category: "processed",
+                price: 350,
+                unit: "精裝包 (300g)",
+                desc: "苗栗公館為全台唯一紅棗產區，溫補養生、口感甘甜，煲湯泡茶皆適合。",
+                image: "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?auto=format&fit=crop&w=600&q=80",
+                rating: 4.8,
+                isHot: true,
+                reviews: [
+                    { user: "陳媽媽", star: 5, comment: "公館紅棗品質很好，煮紅棗銀耳湯非常香甜。" }
+                ]
+            },
+            {
+                id: 3,
+                name: "銅鑼杭菊",
+                category: "tea",
+                price: 420,
+                unit: "玻璃罐裝 (100g)",
+                desc: "銅鑼鄉特產雪白杭菊，清香甘甜、明目退火，為秋季賞菊熱門珍品。",
+                image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
+                rating: 4.7,
+                isHot: false,
+                reviews: [
+                    { user: "王醫師", star: 5, comment: "沖泡後菊花綻放很美，氣味非常舒壓。" }
+                ]
+            },
+            {
+                id: 4,
+                name: "三灣高接梨",
+                category: "fruit",
+                price: 520,
+                unit: "禮盒裝 (6入)",
+                desc: "三灣鄉特產高接梨，果肉清脆多汁、甜度極高，夏天清涼解渴首選。",
+                image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+                rating: 4.8,
+                isHot: false,
+                reviews: [
+                    { user: "林先生", star: 4, comment: "水分很多，甜度很夠！" }
+                ]
+            },
+            {
+                id: 5,
+                name: "頭份東方美人茶",
+                category: "tea",
+                price: 1200,
+                unit: "尊爵鐵罐 (150g)",
+                desc: "頭份市特產膨風茶，經小綠葉蟬叮咬後呈現天然蜜香與果香，口感溫潤順口。",
+                image: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=600&q=80",
+                rating: 5.0,
+                isHot: true,
+                reviews: [
+                    { user: "郭茶友", star: 5, comment: "優雅的天然蜜香，冷泡熱泡都極具特色！" }
+                ]
+            },
+            {
+                id: 6,
+                name: "卓蘭楊桃",
+                category: "fruit",
+                price: 280,
+                unit: "箱裝 (5斤)",
+                desc: "水果之鄉卓蘭鎮盛產，果肉細緻多汁，酸甜平衡，切片如精緻五角星。",
+                image: "https://images.unsplash.com/photo-1543528176-61b239494933?auto=format&fit=crop&w=600&q=80",
+                rating: 4.6,
+                isHot: false,
+                reviews: [
+                    { user: "趙小姐", star: 4, comment: "很新鮮，酸甜滋味剛好。" }
+                ]
+            },
+            {
+                id: 7,
+                name: "南庄桂竹筍",
+                category: "processed",
+                price: 220,
+                unit: "真空包裝 (600g)",
+                desc: "南庄深山無污染高山桂竹筍，口感鮮嫩爽口，極具客家山珍風味。",
+                image: "https://images.unsplash.com/photo-1584270354949-c26b0d5b4a0c?auto=format&fit=crop&w=600&q=80",
+                rating: 4.7,
+                isHot: false,
+                reviews: [
+                    { user: "許太太", star: 5, comment: "拿來燉福菜爌肉簡直絕配，筍子很嫩。" }
+                ]
+            },
+            {
+                id: 8,
+                name: "獅潭桶柑",
+                category: "fruit",
+                price: 320,
+                unit: "網籃裝 (5斤)",
+                desc: "獅潭鄉特產柑橘，果皮薄、甜度高、汁多味美，富含豐富維生素 C。",
+                image: "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&w=600&q=80",
+                rating: 4.8,
+                isHot: false,
+                reviews: [
+                    { user: "吳先生", star: 5, comment: "果肉很甜多汁，皮薄好剝！" }
+                ]
+            },
+            {
+                id: 9,
+                name: "公館福菜",
+                category: "processed",
+                price: 180,
+                unit: "傳統陶罐裝 (400g)",
+                desc: "公館傳統客家工藝醃製芥菜，經日光曬乾發酵，甘醇香濃，料理靈魂底蘊。",
+                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80",
+                rating: 4.9,
+                isHot: true,
+                reviews: [
+                    { user: "周阿嬤", star: 5, comment: "這就是古早味！煮福菜肉片湯甘甜無比。" }
+                ]
+            },
+            {
+                id: 10,
+                name: "泰安甜柿",
+                category: "fruit",
+                price: 580,
+                unit: "禮盒裝 (6入)",
+                desc: "泰安高海拔山區生產，果實飽滿、果肉脆甜 Q 彈，色澤橘紅誘人。",
+                image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80",
+                rating: 4.9,
+                isHot: true,
+                reviews: [
+                    { user: "鄭小姐", star: 5, comment: "非常脆甜，包裝很精美送禮很大方！" }
+                ]
+            }
+        ];
+
+        /* APP STATE */
+        let cart = [];
+        let favorites = [];
+        let history = [];
+        let activeCategory = 'all';
+
+        /* INITIALIZATION */
+        window.onload = function() {
+            renderHotProducts();
+            renderProducts();
+            updateCartUI();
+        };
+
+        /* NAVIGATION SWITCHER */
+        function switchTab(tabId) {
+            const views = ['home', 'products', 'cart', 'profile', 'settings'];
+            views.forEach(v => {
+                const element = document.getElementById(`view-${v}`);
+                if (element) element.classList.add('hidden');
+            });
+            document.getElementById(`view-${tabId}`).classList.remove('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ANNOUNCEMENT CLOSE */
+        function closeAnnouncement(btn) {
+            btn.parentElement.remove();
+        }
+
+        /* RENDER HOT PRODUCTS ON HOMEPAGE */
+        function renderHotProducts() {
+            const container = document.getElementById('hot-products-grid');
+            const hots = productsData.filter(p => p.isHot);
+            container.innerHTML = hots.map(p => createProductCardHTML(p)).join('');
+        }
+
+        /* RENDER ALL PRODUCTS GRID */
+        function renderProducts(filterList = null) {
+            const container = document.getElementById('products-grid');
+            let list = filterList || productsData;
+
+            if (activeCategory !== 'all' && !filterList) {
+                list = list.filter(p => p.category === activeCategory);
+            }
+
+            if (list.length === 0) {
+                container.innerHTML = `<div class="col-span-full py-12 text-center text-theme-muted"><i class="fa-solid fa-box-open text-4xl mb-2"></i><p>查無相關農特產品</p></div>`;
+                return;
+            }
+
+            container.innerHTML = list.map(p => createProductCardHTML(p)).join('');
+        }
+
+        /* CREATE PRODUCT CARD HTML */
+        function createProductCardHTML(p) {
+            const isFav = favorites.includes(p.id);
+            return `
+                <div class="bg-theme-card border border-theme rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div class="relative cursor-pointer" onclick="openProductModal(${p.id})">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-36 md:h-44 object-cover">
+                        ${p.isHot ? `<span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">HOT</span>` : ''}
+                        <button onclick="event.stopPropagation(); toggleFavorite(${p.id})" class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/80 dark:bg-black/50 flex items-center justify-center text-red-500 shadow">
+                            <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-3 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-sm text-theme-main cursor-pointer hover:text-emerald-700" onclick="openProductModal(${p.id})">${p.name}</h4>
+                            <p class="text-[11px] text-theme-muted mt-0.5 line-clamp-1">${p.desc}</p>
+                        </div>
+                        <div class="mt-3 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs text-theme-muted">${p.unit}</span>
+                                <p class="text-base font-bold text-emerald-800 dark:text-emerald-400">NT$ ${p.price}</p>
+                            </div>
+                            <button onclick="addToCart(${p.id}, 1)" class="btn-green p-2 rounded-lg text-xs" title="加入購物車">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        /* CATEGORY FILTER */
+        function changeCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-100', 'text-emerald-800', 'dark:bg-emerald-900', 'dark:text-emerald-200');
+                btn.classList.add('bg-gray-100', 'dark:bg-gray-800', 'text-theme-muted');
+            });
+            event.target.classList.add('bg-emerald-100', 'text-emerald-800', 'dark:bg-emerald-900', 'dark:text-emerald-200');
+            renderProducts();
+        }
+
+        /* SEARCH HANDLER */
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const filtered = productsData.filter(p => p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query));
+            renderProducts(filtered);
+        }
+
+        /* FILTER BUTTONS (ALL / FAVORITES / HISTORY) */
+        function filterProducts(type) {
+            if (type === 'all') {
+                renderProducts();
+            } else if (type === 'fav') {
+                const favList = productsData.filter(p => favorites.includes(p.id));
+                renderProducts(favList);
+            } else if (type === 'history') {
+                const histList = productsData.filter(p => history.includes(p.id));
+                renderProducts(histList);
+            }
+        }
+
+        /* OPEN PRODUCT DETAIL MODAL */
+        function openProductModal(id) {
+            const product = productsData.find(p => p.id === id);
+            if (!product) return;
+
+            // Track browsing history
+            if (!history.includes(id)) {
+                history.push(id);
+            }
+
+            const modalContent = document.getElementById('modal-product-content');
+            const isFav = favorites.includes(product.id);
+
+            modalContent.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-60 md:h-full object-cover rounded-xl">
+                    <div class="space-y-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-xl font-bold">${product.name}</h3>
+                                <button onclick="toggleFavorite(${product.id}); openProductModal(${product.id})" class="text-red-500 text-xl">
+                                    <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>
+                                </button>
+                            </div>
+                            <p class="text-xs text-amber-600 font-semibold mt-1"><i class="fa-solid fa-star"></i> ${product.rating} (評價 10+) ‧ ${product.unit}</p>
+                            <p class="text-sm text-theme-muted mt-3">${product.desc}</p>
+                            <p class="text-2xl font-bold text-emerald-800 dark:text-emerald-400 mt-4">NT$ ${product.price}</p>
+                        </div>
+
+                        <!-- Quantity Selector & Actions -->
+                        <div class="space-y-3 pt-4 border-t border-theme">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-xs font-semibold">選擇數量：</span>
+                                <div class="flex items-center border border-theme rounded-lg">
+                                    <button onclick="adjustModalQty(-1)" class="px-3 py-1 text-sm">-</button>
+                                    <span id="modal-qty" class="px-3 py-1 text-sm font-bold">1</span>
+                                    <button onclick="adjustModalQty(1)" class="px-3 py-1 text-sm">+</button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="addToCartFromModal(${product.id})" class="btn-wood py-2.5 rounded-xl text-xs font-bold">
+                                    <i class="fa-solid fa-cart-plus mr-1"></i>加入購物車
+                                </button>
+                                <button onclick="buyNowFromModal(${product.id})" class="btn-green py-2.5 rounded-xl text-xs font-bold">
+                                    <i class="fa-solid fa-bolt mr-1"></i>直接購買
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 評論專區 (Reviews) -->
+                <div class="mt-6 pt-6 border-t border-theme">
+                    <h4 class="font-bold text-sm mb-3"><i class="fa-solid fa-comments mr-2 text-emerald-700"></i>顧客好評評價 (${product.reviews.length})</h4>
+                    <div class="space-y-3">
+                        ${product.reviews.map(r => `
+                            <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg text-xs">
+                                <div class="flex justify-between font-semibold">
+                                    <span>${r.user}</span>
+                                    <span class="text-amber-500">★ ${r.star}.0</span>
+                                </div>
+                                <p class="text-theme-muted mt-1">${r.comment}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        let modalCurrentQty = 1;
+        function adjustModalQty(delta) {
+            modalCurrentQty = Math.max(1, modalCurrentQty + delta);
+            const qtyElem = document.getElementById('modal-qty');
+            if (qtyElem) qtyElem.innerText = modalCurrentQty;
+        }
+
+        function addToCartFromModal(id) {
+            addToCart(id, modalCurrentQty);
+            closeProductModal();
+            modalCurrentQty = 1;
+        }
+
+        function buyNowFromModal(id) {
+            addToCart(id, modalCurrentQty);
+            closeProductModal();
+            switchTab('cart');
+            modalCurrentQty = 1;
+        }
+
+        /* TOGGLE FAVORITE */
+        function toggleFavorite(id) {
+            const index = favorites.indexOf(id);
+            if (index > -1) {
+                favorites.splice(index, 1);
+                showToast("已從收藏移除");
+            } else {
+                favorites.push(id);
+                showToast("已加入我的收藏 ❤️");
+            }
+            renderProducts();
+        }
+
+        /* CART LOGIC */
+        function addToCart(id, qty = 1) {
+            const product = productsData.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty += qty;
+            } else {
+                cart.push({ ...product, qty });
+            }
+            updateCartUI();
+            showToast(`已將「${product.name}」加入購物車`);
+        }
+
+        function updateCartQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
+            const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+            // Badges
+            document.getElementById('cart-badge').innerText = totalCount;
+            document.getElementById('cart-badge').classList.toggle('hidden', totalCount === 0);
+            document.getElementById('cart-badge-mobile').innerText = totalCount;
+            document.getElementById('cart-badge-mobile').classList.toggle('hidden', totalCount === 0);
+
+            document.getElementById('cart-total-count').innerText = totalCount;
+            document.getElementById('cart-total-price').innerText = totalPrice;
+
+            // Render Cart List
+            const container = document.getElementById('cart-items-container');
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="bg-theme-card p-8 rounded-xl text-center text-theme-muted border border-theme"><i class="fa-solid fa-basket-shopping text-4xl mb-2"></i><p>購物車目前是空的</p></div>`;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="bg-theme-card p-3 rounded-xl border border-theme flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                        <div>
+                            <h4 class="font-bold text-sm">${item.name}</h4>
+                            <p class="text-xs text-theme-muted">單價：NT$ ${item.price}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center border border-theme rounded-lg">
+                            <button onclick="updateCartQty(${item.id}, -1)" class="px-2 py-0.5 text-xs">-</button>
+                            <span class="px-2 py-0.5 text-xs font-bold">${item.qty}</span>
+                            <button onclick="updateCartQty(${item.id}, 1)" class="px-2 py-0.5 text-xs">+</button>
+                        </div>
+                        <span class="font-bold text-sm w-20 text-right">NT$ ${item.price * item.qty}</span>
+                        <button onclick="updateCartQty(${item.id}, -${item.qty})" class="text-red-500 text-xs"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function switchCartTab(tab) {
+            document.getElementById('cart-tab-list').classList.toggle('tab-active', tab === 'list');
+            document.getElementById('cart-tab-orders').classList.toggle('tab-active', tab === 'orders');
+            document.getElementById('cart-content-list').classList.toggle('hidden', tab !== 'list');
+            document.getElementById('cart-content-orders').classList.toggle('hidden', tab !== 'orders');
+        }
+
+        function handleCheckout() {
+            if (cart.length === 0) {
+                showToast("購物車內無商品，無法結帳");
+                return;
+            }
+            showToast("🎉 感謝訂購！訂單已順利成立，即刻處理中！");
+            cart = [];
+            updateCartUI();
+            switchCartTab('orders');
+        }
+
+        /* ONLINE CUSTOMER SERVICE CHAT */
+        function toggleCustomerService() {
+            document.getElementById('chat-modal').classList.toggle('hidden');
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            const container = document.getElementById('chat-messages');
+            container.innerHTML += `<div class="bg-gray-200 dark:bg-gray-700 p-2 rounded-lg text-right max-w-[85%] ml-auto">${msg}</div>`;
+            input.value = '';
+
+            setTimeout(() => {
+                container.innerHTML += `<div class="bg-emerald-100 dark:bg-emerald-950/60 p-2 rounded-lg text-emerald-900 dark:text-emerald-200 max-w-[85%]">感謝諮詢！專人客服正為您處理「${msg}」，請稍候。</div>`;
+                container.scrollTop = container.scrollHeight;
+            }, 800);
+        }
+
+        /* AUTHENTICATION MODAL SYSTEM */
+        function openAuthModal(tab = 'login') {
+            switchAuthTab(tab);
+            document.getElementById('auth-modal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function switchAuthTab(tab) {
+            ['login', 'register', 'forgot'].forEach(t => {
+                document.getElementById(`form-${t}`).classList.add('hidden');
+                document.getElementById(`auth-tab-${t}`).classList.remove('text-emerald-700', 'border-b-2', 'border-emerald-700');
+                document.getElementById(`auth-tab-${t}`).classList.add('text-theme-muted');
+            });
+
+            document.getElementById(`form-${tab}`).classList.remove('hidden');
+            document.getElementById(`auth-tab-${tab}`).classList.add('text-emerald-700', 'border-b-2', 'border-emerald-700');
+            document.getElementById(`auth-tab-${tab}`).classList.remove('text-theme-muted');
+        }
+
+        function handleAuthSubmit(type) {
+            closeAuthModal();
+            if (type === 'login') {
+                document.getElementById('user-display-name').innerText = "陳阿哥";
+                showToast("登入成功！歡迎回到苗農嚴選");
+            } else if (type === 'register') {
+                showToast("帳號建立成功，請登入");
+            } else {
+                showToast("密碼重置信件已發送至您的信箱");
+            }
+        }
+
+        function handleLogout() {
+            document.getElementById('user-display-name').innerText = "會員登入";
+            showToast("已安全登出");
+        }
+
+        function confirmDeleteAccount() {
+            showToast("⚠️ 註銷帳號申請已送出，客服將於24小時內聯繫確認");
+        }
+
+        /* SETTINGS: DARK MODE & FONT SIZE */
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            showToast(isDark ? "已切換至夜間模式" : "已切換至日間模式");
+        }
+
+        function setFontSize(size) {
+            document.body.classList.remove('font-sm', 'font-md', 'font-lg');
+            document.body.classList.add(`font-${size}`);
+
+            ['sm', 'md', 'lg'].forEach(s => {
+                const btn = document.getElementById(`font-btn-${s}`);
+                btn.classList.remove('bg-white', 'dark:bg-gray-700', 'font-bold', 'shadow');
+            });
+            document.getElementById(`font-btn-${size}`).classList.add('bg-white', 'dark:bg-gray-700', 'font-bold', 'shadow');
+            showToast(`字體已調整為：${size === 'sm' ? '小' : size === 'md' ? '中' : '大'}`);
+        }
+
+        /* GLOBAL TOAST MESSAGE */
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = msg;
+            toast.classList.remove('opacity-0', 'translate-y-[-10px]');
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-10px]');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
